@@ -1,6 +1,6 @@
 import Model.Order;
-import io.restassured.response.ValidatableResponse;
 import io.qameta.allure.Description;
+import io.restassured.response.ValidatableResponse;
 import org.junit.Test;
 
 import java.util.List;
@@ -17,8 +17,8 @@ public class GetOrderListTest {
     @Description("Этот тест проверяет список заказов")
     public void orderListTest() {
         ValidatableResponse orderListResponse = order.getOrderList();
-       int statusCode = orderListResponse.extract().statusCode();
-       List<Integer> idOrder = orderListResponse.extract().path("orders.id");
+        int statusCode = orderListResponse.extract().statusCode();
+        List<Integer> idOrder = orderListResponse.extract().path("orders.id");
         assertEquals("Status code is incorrect", HTTP_OK, statusCode);
         assertThat("Order list empty", idOrder, notNullValue());
     }

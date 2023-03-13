@@ -22,6 +22,7 @@ public class Order extends ScooterRestClient {
                 .post(CREATE_ORDER)
                 .then();
     }
+
     @Step("Get Order List")
     public ValidatableResponse getOrderList() {
         OrderListField order = new OrderListField();

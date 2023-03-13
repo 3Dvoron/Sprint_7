@@ -1,21 +1,20 @@
 package POJO;
 
 public class CourierField {
+    private String login;
+    private String password;
+    private String firstName;
+
     public CourierField(String login, String password, String firstName) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
     }
 
-
     public CourierField(String login, String password) {
         this.login = login;
         this.password = password;
     }
-
-    private String login;
-    private String password;
-    private String firstName;
 
     public String getLogin() {
         return login;

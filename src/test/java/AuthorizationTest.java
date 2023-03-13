@@ -11,18 +11,16 @@ import static java.net.HttpURLConnection.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-
 public class AuthorizationTest extends ScooterRestClient {
     public int idCourier;
     String login = RandomStringUtils.randomAlphabetic(10);
     String password = RandomStringUtils.randomAlphabetic(10);
     String firstName = RandomStringUtils.randomAlphabetic(10);
-
     Courier courier = new Courier();
 
     @Before
     public void setup() {
-        courier.createCourier(login, password ,firstName);
+        courier.createCourier(login, password, firstName);
     }
 
     @Test
@@ -42,44 +40,43 @@ public class AuthorizationTest extends ScooterRestClient {
         int statusCode = loginResponse.extract().statusCode();
         String expectedMessage = loginResponse.extract().path("message");
         assertEquals("Message is incorrect", "Недостаточно данных для входа", expectedMessage);
-        assertEquals("Status code is incorrect",HTTP_BAD_REQUEST,statusCode);
+        assertEquals("Status code is incorrect", HTTP_BAD_REQUEST, statusCode);
     }
 
     @Test
     @Description("Этот тест проверяет что невозможно авторизоваться без пароля")
     public void authorizationWithoutPasswordTest() {
-        ValidatableResponse loginResponse = courier.loginCourier(login,emptyString);
+        ValidatableResponse loginResponse = courier.loginCourier(login, emptyString);
         int statusCode = loginResponse.extract().statusCode();
         String expectedMessage = loginResponse.extract().path("message");
         assertEquals("Message is incorrect", "Недостаточно данных для входа", expectedMessage);
-        assertEquals("Status code is incorrect",HTTP_BAD_REQUEST,statusCode);
+        assertEquals("Status code is incorrect", HTTP_BAD_REQUEST, statusCode);
     }
 
     @Test
     @Description("Этот тест проверяет что невозможно авторизоваться с неправильным паролем")
     public void authorizationWrongPasswordTest() {
-        ValidatableResponse loginResponse = courier.loginCourier(login,randomString);
+        ValidatableResponse loginResponse = courier.loginCourier(login, randomString);
         int statusCode = loginResponse.extract().statusCode();
         String expectedMessage = loginResponse.extract().path("message");
         assertEquals("Message is incorrect", "Учетная запись не найдена", expectedMessage);
-        assertEquals("Status code is incorrect",HTTP_NOT_FOUND,statusCode);
+        assertEquals("Status code is incorrect", HTTP_NOT_FOUND, statusCode);
     }
 
     @Test
     @Description("Этот тест проверяет что невозможно авторизоваться с неправильным логином")
     public void authorizationWrongLoginTest() {
-        ValidatableResponse loginResponse = courier.loginCourier(randomString,password);
+        ValidatableResponse loginResponse = courier.loginCourier(randomString, password);
         int statusCode = loginResponse.extract().statusCode();
         String expectedMessage = loginResponse.extract().path("message");
         assertEquals("Message is incorrect", "Учетная запись не найдена", expectedMessage);
-        assertEquals("Status code is incorrect",HTTP_NOT_FOUND,statusCode);
+        assertEquals("Status code is incorrect", HTTP_NOT_FOUND, statusCode);
     }
 
     @After
     public void clean() {
-        ValidatableResponse loginResponse = courier.loginCourier(login,password);
+        ValidatableResponse loginResponse = courier.loginCourier(login, password);
         idCourier = loginResponse.extract().path("id");
         courier.delete(idCourier);
     }
-
 }

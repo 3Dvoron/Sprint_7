@@ -1,7 +1,6 @@
 package Model;
 
 import POJO.CourierField;
-//import POJO.IdField;
 import Util.ScooterRestClient;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
@@ -23,8 +22,8 @@ public class Courier extends ScooterRestClient {
 
     @Step("Authorization")
     public ValidatableResponse loginCourier(String login, String password) {
-        CourierField courierField = new CourierField(login,password);
-        return   given()
+        CourierField courierField = new CourierField(login, password);
+        return given()
                 .spec(getBaseReqSpec())
                 .body(courierField)
                 .when()
@@ -33,8 +32,8 @@ public class Courier extends ScooterRestClient {
     }
 
     @Step("Delete account")
-    public ValidatableResponse delete(int id){
-        return   given()
+    public ValidatableResponse delete(int id) {
+        return given()
                 .spec(getBaseReqSpec())
                 .body("id")
                 .when()

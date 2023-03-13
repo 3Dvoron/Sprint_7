@@ -6,6 +6,7 @@ public class OrderListField {
     private Integer courierId;
     private String nearestStation;
     private Integer limit;
+    private Integer page;
 
     public Integer getCourierId() {
         return courierId;
@@ -38,6 +39,4 @@ public class OrderListField {
     public void setPage(Integer page) {
         this.page = page;
     }
-
-    private Integer page;
 }
