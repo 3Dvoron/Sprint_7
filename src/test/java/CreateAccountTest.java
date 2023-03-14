@@ -1,5 +1,5 @@
-import Model.Courier;
-import Util.ScooterRestClient;
+import model.Courier;
+import util.ScooterRestClient;
 import io.qameta.allure.Description;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -13,9 +13,9 @@ import static org.junit.Assert.assertTrue;
 
 public class CreateAccountTest extends ScooterRestClient {
     public int idCourier;
-    String login = RandomStringUtils.randomAlphabetic(10);
-    String password = RandomStringUtils.randomAlphabetic(10);
-    String firstName = RandomStringUtils.randomAlphabetic(10);
+    private String login = RandomStringUtils.randomAlphabetic(10);
+    private String password = RandomStringUtils.randomAlphabetic(10);
+    private String firstName = RandomStringUtils.randomAlphabetic(10);
     Courier courier = new Courier();
 
     @Test
@@ -48,8 +48,8 @@ public class CreateAccountTest extends ScooterRestClient {
         ValidatableResponse createIdenticalLogin = courier.createCourier(login, randomString, randomString);
         int statusIdenticalLogin = createIdenticalLogin.extract().statusCode();
         String expectedMessage = createIdenticalLogin.extract().path("message");
-        assertEquals("Message is incorrect", "Этот логин уже используется. Попробуйте другой.", expectedMessage);
         assertEquals("Status code is incorrect", HTTP_CONFLICT, statusIdenticalLogin);
+        assertEquals("Message is incorrect", "Этот логин уже используется. Попробуйте другой.", expectedMessage);
     }
 
     @Test
@@ -59,8 +59,8 @@ public class CreateAccountTest extends ScooterRestClient {
         ValidatableResponse createIdenticalLogin = courier.createCourier(login, emptyString, firstName);
         int statusIdenticalLogin = createIdenticalLogin.extract().statusCode();
         String expectedMessage = createIdenticalLogin.extract().path("message");
-        assertEquals("Message is incorrect", "Недостаточно данных для создания учетной записи", expectedMessage);
         assertEquals("Status code is incorrect", HTTP_BAD_REQUEST, statusIdenticalLogin);
+        assertEquals("Message is incorrect", "Недостаточно данных для создания учетной записи", expectedMessage);
     }
 
     @Test
@@ -70,8 +70,8 @@ public class CreateAccountTest extends ScooterRestClient {
         ValidatableResponse createIdenticalLogin = courier.createCourier(emptyString, password, firstName);
         int statusIdenticalLogin = createIdenticalLogin.extract().statusCode();
         String expectedMessage = createIdenticalLogin.extract().path("message");
-        assertEquals("Message is incorrect", "Недостаточно данных для создания учетной записи", expectedMessage);
         assertEquals("Status code is incorrect", HTTP_BAD_REQUEST, statusIdenticalLogin);
+        assertEquals("Message is incorrect", "Недостаточно данных для создания учетной записи", expectedMessage);
     }
 
     @After

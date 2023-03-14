@@ -1,7 +1,8 @@
-package Model;
+package model;
 
-import POJO.CourierField;
-import Util.ScooterRestClient;
+import io.restassured.RestAssured;
+import pojo.CourierField;
+import util.ScooterRestClient;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
@@ -12,32 +13,32 @@ public class Courier extends ScooterRestClient {
     @Step("Create account")
     public ValidatableResponse createCourier(String login, String password, String firstName) {
         CourierField courierField = new CourierField(login, password, firstName);
-        return given()
+        return RestAssured.given()
                 .spec(getBaseReqSpec())
                 .body(courierField)
                 .when()
-                .post(CREATE_COURIER_URI)
+                .post(ScooterRestClient.CREATE_COURIER_URI)
                 .then();
     }
 
     @Step("Authorization")
     public ValidatableResponse loginCourier(String login, String password) {
         CourierField courierField = new CourierField(login, password);
-        return given()
+        return RestAssured.given()
                 .spec(getBaseReqSpec())
                 .body(courierField)
                 .when()
-                .post(AUTHORIZATION_URI)
+                .post(ScooterRestClient.AUTHORIZATION_URI)
                 .then();
     }
 
     @Step("Delete account")
     public ValidatableResponse delete(int id) {
-        return given()
+        return RestAssured.given()
                 .spec(getBaseReqSpec())
                 .body("id")
                 .when()
-                .delete(CREATE_COURIER_URI + id)
+                .delete(ScooterRestClient.CREATE_COURIER_URI + id)
                 .then();
     }
 }

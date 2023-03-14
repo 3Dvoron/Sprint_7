@@ -1,6 +1,4 @@
-package POJO;
-
-import java.awt.*;
+package pojo;
 
 public class OrderListField {
     private Integer courierId;

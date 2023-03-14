@@ -38,6 +38,12 @@
             <artifactId>allure-rest-assured</artifactId>
             <version>${allure.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -71,12 +77,6 @@
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
                         <version>${aspectj.version}</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>io.rest-assured</groupId>
-                        <artifactId>rest-assured</artifactId>
-                        <version>5.3.0</version>
                     </dependency>
 
                 </dependencies>

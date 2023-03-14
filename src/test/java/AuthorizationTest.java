@@ -1,5 +1,5 @@
-import Model.Courier;
-import Util.ScooterRestClient;
+import model.Courier;
+import util.ScooterRestClient;
 import io.qameta.allure.Description;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -13,9 +13,9 @@ import static org.junit.Assert.assertTrue;
 
 public class AuthorizationTest extends ScooterRestClient {
     public int idCourier;
-    String login = RandomStringUtils.randomAlphabetic(10);
-    String password = RandomStringUtils.randomAlphabetic(10);
-    String firstName = RandomStringUtils.randomAlphabetic(10);
+    private String login = RandomStringUtils.randomAlphabetic(10);
+    private String password = RandomStringUtils.randomAlphabetic(10);
+    private String firstName = RandomStringUtils.randomAlphabetic(10);
     Courier courier = new Courier();
 
     @Before
@@ -39,8 +39,8 @@ public class AuthorizationTest extends ScooterRestClient {
         ValidatableResponse loginResponse = courier.loginCourier(emptyString, password);
         int statusCode = loginResponse.extract().statusCode();
         String expectedMessage = loginResponse.extract().path("message");
-        assertEquals("Message is incorrect", "Недостаточно данных для входа", expectedMessage);
         assertEquals("Status code is incorrect", HTTP_BAD_REQUEST, statusCode);
+        assertEquals("Message is incorrect", "Недостаточно данных для входа", expectedMessage);
     }
 
     @Test
@@ -49,8 +49,8 @@ public class AuthorizationTest extends ScooterRestClient {
         ValidatableResponse loginResponse = courier.loginCourier(login, emptyString);
         int statusCode = loginResponse.extract().statusCode();
         String expectedMessage = loginResponse.extract().path("message");
-        assertEquals("Message is incorrect", "Недостаточно данных для входа", expectedMessage);
         assertEquals("Status code is incorrect", HTTP_BAD_REQUEST, statusCode);
+        assertEquals("Message is incorrect", "Недостаточно данных для входа", expectedMessage);
     }
 
     @Test
@@ -59,8 +59,8 @@ public class AuthorizationTest extends ScooterRestClient {
         ValidatableResponse loginResponse = courier.loginCourier(login, randomString);
         int statusCode = loginResponse.extract().statusCode();
         String expectedMessage = loginResponse.extract().path("message");
-        assertEquals("Message is incorrect", "Учетная запись не найдена", expectedMessage);
         assertEquals("Status code is incorrect", HTTP_NOT_FOUND, statusCode);
+        assertEquals("Message is incorrect", "Учетная запись не найдена", expectedMessage);
     }
 
     @Test
@@ -69,8 +69,8 @@ public class AuthorizationTest extends ScooterRestClient {
         ValidatableResponse loginResponse = courier.loginCourier(randomString, password);
         int statusCode = loginResponse.extract().statusCode();
         String expectedMessage = loginResponse.extract().path("message");
-        assertEquals("Message is incorrect", "Учетная запись не найдена", expectedMessage);
         assertEquals("Status code is incorrect", HTTP_NOT_FOUND, statusCode);
+        assertEquals("Message is incorrect", "Учетная запись не найдена", expectedMessage);
     }
 
     @After

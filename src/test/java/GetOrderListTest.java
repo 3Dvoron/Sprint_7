@@ -1,4 +1,4 @@
-import Model.Order;
+import model.Order;
 import io.qameta.allure.Description;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Test;
